@@ -1,0 +1,8 @@
+人数数据沿用同学原包，总人数410；统一采用当前成本A250 B300 C180 D350 E450 F260 G100，固定恰好3台。
+从02_软件/WiFi_Lab目录运行：
+python3 demand_extension.py --budget 750
+python3 demand_extension.py --budget 1100 --csv results.csv
+运行测试：python3 -m unittest -v test_demand_extension
+脚本计算P=覆盖人数/410，按K≤预算筛选后最大化P，并列最高全部保留。Pareto使用成本更低、人数更多方向。
+此脚本为教师命令行核验与进阶代码阅读，不在GUI；人口不是带宽或真实容量；不能将这里的P代入主线Q而仍沿用原答案。
+CSV的rate列为0至1比例。CSV属于教师答案；先让学生预测再展示。

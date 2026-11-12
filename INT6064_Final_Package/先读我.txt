@@ -1,0 +1,7 @@
+先打开00_索引与整合说明.docx。
+当前教学：01_教学材料/Teaching_Bridge.docx。
+当前程序：02_软件/WiFi_Lab/main.py。
+数学依据：04_数学建模/Model_and_Math_Tasks.docx。
+小组后续任务：00_项目协调/Project_Integration_and_Next_Steps.docx。
+本包是组内整合包，含教师答案及参考，不要整包原样发给学生。
+原作者完整材料在90_原始参考；不与当前操作指南混用。

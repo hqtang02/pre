@@ -1,0 +1,76 @@
+Running group_project: test_coverage.py
+test_T10_all_classrooms_accounted_for (test_coverage.TestWiFiCoverage.test_T10_all_classrooms_accounted_for)
+Covered and uncovered counts must total 12. ... ok
+test_T1_optimal_solution (test_coverage.TestWiFiCoverage.test_T1_optimal_solution)
+BDE must cover all 12 classrooms. ... ok
+test_T2_greedy_solution (test_coverage.TestWiFiCoverage.test_T2_greedy_solution)
+GDB must cover 11 classrooms. ... ok
+test_T3_boundary_covered (test_coverage.TestWiFiCoverage.test_T3_boundary_covered)
+Distance squared = 9 must be covered. ... ok
+test_T4_outside_radius (test_coverage.TestWiFiCoverage.test_T4_outside_radius)
+Distance squared = 10 must not be covered. ... ok
+test_T5_duplicate_router (test_coverage.TestWiFiCoverage.test_T5_duplicate_router)
+Duplicate router selections must be rejected. ... ok
+test_T6_too_few_routers (test_coverage.TestWiFiCoverage.test_T6_too_few_routers)
+Fewer than 3 routers must be rejected. ... ok
+test_T7_too_many_routers (test_coverage.TestWiFiCoverage.test_T7_too_many_routers)
+More than 3 routers must be rejected. ... ok
+test_T8_invalid_router (test_coverage.TestWiFiCoverage.test_T8_invalid_router)
+Unknown router IDs must be rejected. ... ok
+test_T9_no_duplicate_classroom_count (test_coverage.TestWiFiCoverage.test_T9_no_duplicate_classroom_count)
+Each classroom must be counted only once. ... ok
+
+----------------------------------------------------------------------
+Ran 10 tests in 0.000s
+
+OK
+Running stage3: test_*.py
+test_all_84_pairs_and_full_coverage (test_gui_state.BasicExpressionTests.test_all_84_pairs_and_full_coverage) ... ok
+test_boundary_covered (test_gui_state.BasicExpressionTests.test_boundary_covered) ... ok
+test_distance_task_cannot_be_bypassed (test_gui_state.BasicExpressionTests.test_distance_task_cannot_be_bypassed) ... ok
+test_cancel_job_stops_worker (test_gui_state.ControllerTests.test_cancel_job_stops_worker) ... ok
+test_expression_edit_invalidates_all_blocks (test_gui_state.ControllerTests.test_expression_edit_invalidates_all_blocks) ... ok
+test_manual_check_uses_active_weight (test_gui_state.ControllerTests.test_manual_check_uses_active_weight) ... ok
+test_old_poll_cannot_consume_new_job (test_gui_state.ControllerTests.test_old_poll_cannot_consume_new_job) ... ok
+test_one_block_edit_does_not_erase_other_blocks (test_gui_state.ControllerTests.test_one_block_edit_does_not_erase_other_blocks) ... ok
+test_unfinished_guided_algorithm_cannot_run (test_gui_state.ControllerTests.test_unfinished_guided_algorithm_cannot_run) ... ok
+test_weight_change_invalidates_certification_not_history (test_gui_state.ControllerTests.test_weight_change_invalidates_certification_not_history) ... ok
+test_all_49_expressions (test_revision.RevisionTests.test_all_49_expressions) ... ok
+test_all_nonoptimal_plans_rejected (test_revision.RevisionTests.test_all_nonoptimal_plans_rejected) ... ok
+test_bad_weights (test_revision.RevisionTests.test_bad_weights) ... ok
+test_cost_expression_cannot_be_constant (test_revision.RevisionTests.test_cost_expression_cannot_be_constant) ... ok
+test_debug_originals_fail_repairs_pass (test_revision.RevisionTests.test_debug_originals_fail_repairs_pass) ... ok
+test_each_guided_block_independent (test_revision.RevisionTests.test_each_guided_block_independent) ... ok
+test_guided_and_free_algorithms_all_weights (test_revision.RevisionTests.test_guided_and_free_algorithms_all_weights) ... ok
+test_import_and_file_access_rejected (test_revision.RevisionTests.test_import_and_file_access_rejected) ... ok
+test_incomplete_block_reports_failure (test_revision.RevisionTests.test_incomplete_block_reports_failure) ... ok
+test_invalid_or_missing_algorithm_return (test_revision.RevisionTests.test_invalid_or_missing_algorithm_return) ... ok
+test_invalid_return_values (test_revision.RevisionTests.test_invalid_return_values) ... ok
+test_overlap_deduplicated (test_revision.RevisionTests.test_overlap_deduplicated) ... ok
+test_reference_geometry_independent_of_precomputed_map (test_revision.RevisionTests.test_reference_geometry_independent_of_precomputed_map) ... ok
+test_runaway_process_can_be_terminated (test_revision.RevisionTests.test_runaway_process_can_be_terminated) ... ok
+test_same_data_object_for_costs (test_revision.RevisionTests.test_same_data_object_for_costs) ... ok
+test_score_expression_tested_on_multiple_weights (test_revision.RevisionTests.test_score_expression_tested_on_multiple_weights) ... ok
+test_strict_comparison_rejects_equal (test_revision.RevisionTests.test_strict_comparison_rejects_equal) ... ok
+test_student_helpers_reuse_expressions (test_revision.RevisionTests.test_student_helpers_reuse_expressions) ... ok
+test_tied_top_scores_accepted (test_revision.RevisionTests.test_tied_top_scores_accepted) ... ok
+test_weight_changes_selected_plan (test_revision.RevisionTests.test_weight_changes_selected_plan) ... ok
+test_worker_uses_passed_weight_under_spawn (test_revision.RevisionTests.test_worker_uses_passed_weight_under_spawn) ... ok
+test_all_combinations (test_stage3.TestStage3.test_all_combinations) ... ok
+test_bde_score (test_stage3.TestStage3.test_bde_score) ... ok
+test_bdg_score (test_stage3.TestStage3.test_bdg_score) ... ok
+test_cost_bde (test_stage3.TestStage3.test_cost_bde) ... ok
+test_cost_bdg (test_stage3.TestStage3.test_cost_bdg) ... ok
+test_coverage_bde (test_stage3.TestStage3.test_coverage_bde) ... ok
+test_coverage_bdg (test_stage3.TestStage3.test_coverage_bdg) ... ok
+test_duplicate_router (test_stage3.TestStage3.test_duplicate_router) ... ok
+test_invalid_router_count (test_stage3.TestStage3.test_invalid_router_count) ... ok
+test_max_cost (test_stage3.TestStage3.test_max_cost) ... ok
+test_optimal_plan (test_stage3.TestStage3.test_optimal_plan) ... ok
+test_unique_top_score (test_stage3.TestStage3.test_unique_top_score) ... ok
+test_unknown_router (test_stage3.TestStage3.test_unknown_router) ... ok
+
+----------------------------------------------------------------------
+Ran 44 tests in 0.368s
+
+OK
