@@ -547,7 +547,7 @@ ttk.Label(
 distance_editor = tk.Text(
     right,
     height=3,
-    font=("Consolas", 12),
+    font=("Consolas", 11),
     bg="#202936",
     fg="white",
     insertbackground="white"
@@ -568,7 +568,7 @@ ttk.Label(
 condition_editor = tk.Text(
     right,
     height=3,
-    font=("Consolas", 12),
+    font=("Consolas", 11),
     bg="#202936",
     fg="white",
     insertbackground="white"

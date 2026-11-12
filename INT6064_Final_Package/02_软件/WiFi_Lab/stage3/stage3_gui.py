@@ -71,7 +71,7 @@ class Stage3App(MapView):
 
     def text_editor(self,parent,height,text='',callback=None):
         box=ttk.Frame(parent);box.pack(fill='both',expand=True,pady=4)
-        widget=tk.Text(box,height=height,font=('Courier',10),wrap='none',undo=True)
+        widget=tk.Text(box,height=height,font=('Consolas',11),wrap='none',undo=True)
         vs=ttk.Scrollbar(box,orient='vertical',command=widget.yview)
         hs=ttk.Scrollbar(box,orient='horizontal',command=widget.xview)
         widget.configure(yscrollcommand=vs.set,xscrollcommand=hs.set)
