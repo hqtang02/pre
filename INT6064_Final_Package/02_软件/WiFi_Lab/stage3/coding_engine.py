@@ -345,8 +345,8 @@ def make_student_helpers(expressions, weight):
     return dict(student_cost=student_cost, student_score=student_score, student_better=student_better)
 
 
-def check_expressions(expressions):
-    """35 cost cases, 8 score cases and 6 comparison cases, tested independently."""
+def _expression_cases():
+    """35 cost cases, 8 score cases and 6 comparison cases."""
     cases = []
     for selected in combinations(sorted(ROUTERS), ROUTER_LIMIT):
         cases.append((3, dict(costs=INSTALLATION_COSTS, selected=selected),
@@ -357,6 +357,31 @@ def check_expressions(expressions):
             coverage_weight=weight,cost_weight=1-weight), weight*rate+(1-weight)*cost))
     for score,best in [(1,0),(0,1),(.5,.5),(0,-1),(.9,.8),(.2,.7)]:
         cases.append((5, dict(score=score,best_score=best), score>best))
+    return cases
+
+
+def check_expression_todos(expressions):
+    """Return pass/fail for each TODO expression independently."""
+    status = {3: True, 4: True, 5: True}
+    for todo, variables, expected in _expression_cases():
+        try:
+            result = evaluate_expression(expressions[todo], variables)
+            if todo == 5:
+                correct = type(result) is bool and result == expected
+            else:
+                correct = (type(result) in (int, float)
+                           and math.isfinite(result)
+                           and math.isclose(result, expected, rel_tol=1e-9, abs_tol=1e-9))
+            if not correct:
+                status[todo] = False
+        except Exception:
+            status[todo] = False
+    return status
+
+
+def check_expressions(expressions):
+    """35 cost cases, 8 score cases and 6 comparison cases, tested independently."""
+    cases = _expression_cases()
     passed=0; errors=[]
     for todo, variables, expected in cases:
         try:

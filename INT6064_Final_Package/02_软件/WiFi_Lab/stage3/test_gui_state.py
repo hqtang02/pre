@@ -22,7 +22,7 @@ class ControllerTests(unittest.TestCase):
         a.process=None;a.result_queue=None;a.job=None;a.poll_token=0;a.revision=0
         a.tests_passed=True;a.block_passed={k:True for k in 'ABC'}
         a.block_labels={k:MagicMock() for k in 'ABC'}
-        a.history=[('70/30','old result')];a.selected=['B','D','G']
+        a.history=[('70/30','old result')];a.selected=['B','D','G'];a.evidence=[];a.evidence_log=MagicMock()
         for name in ['test_label','manual_feedback','algorithm_feedback','manual_button',
                      'algorithm_button','status','debug_feedback','plan_label','records','draw_map']:
             setattr(a,name,MagicMock())
