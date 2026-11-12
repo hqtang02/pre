@@ -330,7 +330,14 @@ class Stage3App(MapView):
         if not valid_plan(self.selected):self.status.set('Select exactly 3 different installation points.');return
         optimal=verify_optimal(self.selected,self.weight)
         self.manual_feedback.config(text=f"Manual plan: {'Optimal' if optimal else 'Not optimal'} (reference hidden)")
-        self.record_plan('Manual')
+        result=self.record_plan('Manual')
+        if result is not None:
+            self.add_evidence(
+                f"Manual plan recorded: {' + '.join(result['routers'])} | "
+                f"coverage {result['covered_count']}/{len(CLASSROOMS)} "
+                f"({result['coverage_rate']:.1%}) | cost {result['cost']} | "
+                f"score {result['score']:.4f}"
+            )
 
     def record_plan(self,method):
         result=evaluate_plan(self.selected,self.weight)
@@ -338,11 +345,13 @@ class Stage3App(MapView):
              f"{result['covered_count']}/12 ({result['coverage_rate']:.1%})",result['cost'],
              f"{result['score']:.4f}",','.join(result['uncovered']) or 'None',
              'YES' if verify_optimal(self.selected,self.weight) else 'NO')
-        if row in self.history:
-            self.status.set('This outcome is already recorded for the current scenario.')
-            return
+        key=(row[0],row[1],row[2])
+        if any(len(old)>=3 and (old[0],old[1],old[2])==key for old in self.history):
+            self.status.set('This plan is already recorded for this method and scenario.')
+            return None
         self.history.append(row);self.records.insert('','end',values=row)
         self.status.set('Outcome recorded in Evidence.')
+        return result
 
     def add_evidence(self,summary,job=None):
         entry=f"[{datetime.now().strftime('%H:%M:%S')}] {summary}"
