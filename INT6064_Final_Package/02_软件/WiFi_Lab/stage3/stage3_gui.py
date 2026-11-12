@@ -338,7 +338,11 @@ class Stage3App(MapView):
              f"{result['covered_count']}/12 ({result['coverage_rate']:.1%})",result['cost'],
              f"{result['score']:.4f}",','.join(result['uncovered']) or 'None',
              'YES' if verify_optimal(self.selected,self.weight) else 'NO')
+        if row in self.history:
+            self.status.set('This outcome is already recorded for the current scenario.')
+            return
         self.history.append(row);self.records.insert('','end',values=row)
+        self.status.set('Outcome recorded in Evidence.')
 
     def add_evidence(self,summary,job=None):
         entry=f"[{datetime.now().strftime('%H:%M:%S')}] {summary}"
