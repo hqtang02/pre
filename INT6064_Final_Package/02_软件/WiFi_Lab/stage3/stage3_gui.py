@@ -10,7 +10,8 @@ from datetime import datetime
 from data import CLASSROOMS, ROUTERS, ROUTER_LIMIT, INSTALLATION_COSTS, ROUTER_COVERAGE
 from stage3_core import WEIGHT_PRESETS, evaluate_plan, verify_optimal, valid_plan
 from coding_engine import (BLOCK_HINTS, DEBUG_STARTERS, assemble_algorithm,
-                           check_expressions, exercise_worker, validate_student_algorithm)
+                           check_expressions, check_expression_todos, exercise_worker,
+                           validate_student_algorithm)
 from map_view import MapView
 
 
@@ -19,7 +20,7 @@ class Stage3App(MapView):
         self.root=root
         root.title('Campus Wi-Fi Lab | Evaluate, Code and Explain')
         root.geometry('1320x900');root.minsize(1100,780)
-        self.selected=[];self.tests_passed=False;self.block_passed={k:False for k in 'ABC'}
+        self.selected=[];self.tests_passed=False;self.todo_ok={3:False,4:False,5:False};self.block_passed={k:False for k in 'ABC'}
         self.process=None;self.result_queue=None;self.job=None;self.history=[];self.evidence=[]
         self.revision=0;self.poll_token=0
         self.weight_name=tk.StringVar(value='Balanced 70/30')
@@ -174,11 +175,12 @@ class Stage3App(MapView):
     def code_changed(self,kind):
         self.cancel_job();self.revision+=1
         if kind=='basic':
-            self.tests_passed=False
+            self.tests_passed=False;self.todo_ok={3:False,4:False,5:False}
             self.test_label.config(text='Tests: Expressions changed; test again.')
             for k in 'ABC':
                 self.block_passed[k]=False;self.block_labels[k].config(text=f'Block {k}: Test again')
             self.manual_feedback.config(text='Manual plan: Not checked')
+            self.refresh_map()
         elif kind in 'ABC':
             self.block_passed[kind]=False;self.block_labels[kind].config(text=f'Block {kind}: Code changed; test again')
         if kind=='debug':self.debug_feedback.config(text='Code changed; test the repair again.')
@@ -210,12 +212,15 @@ class Stage3App(MapView):
             self.plan_label.config(text=f"Selected: {', '.join(sorted(self.selected)) or 'None'} ({len(self.selected)}/3)\nSelect exactly 3 installation points.")
             return
         r=evaluate_plan(self.selected,self.weight)
-        self.plan_label.config(text=(f"Plan: {' + '.join(r['routers'])}  |  Weights {self.weight:.0%}/{1-self.weight:.0%}\n"
-            f"Coverage: {r['covered_count']}/{len(CLASSROOMS)} = {r['coverage_rate']:.2%}\n"
-            f"Uncovered: {', '.join(r['uncovered']) or 'None'}\n"
-            f"Cost: ${r['cost']}  |  Cost score: {r['cost_score']:.4f}\n"
-            f"Score = {self.weight:.2f} × {r['coverage_rate']:.4f} + {1-self.weight:.2f} × {r['cost_score']:.4f}\n"
-            f"Composite score: {r['score']:.4f}"))
+        text=(f"Plan: {' + '.join(r['routers'])}  |  Weights {self.weight:.0%}/{1-self.weight:.0%}\n"
+              f"Coverage: {r['covered_count']}/{len(CLASSROOMS)} = {r['coverage_rate']:.2%}\n"
+              f"Uncovered: {', '.join(r['uncovered']) or 'None'}")
+        todo_ok=getattr(self,'todo_ok',{})
+        if todo_ok.get(3):
+            text += f"\nInstallation cost: ${r['cost']}"
+        if todo_ok.get(4):
+            text += f"\nWeighted score: {r['score']:.4f}"
+        self.plan_label.config(text=text)
 
     def on_router_click(self,event):
         for item in reversed(self.canvas.find_overlapping(event.x,event.y,event.x,event.y)):
@@ -238,9 +243,10 @@ class Stage3App(MapView):
         self.cancel_job()
         passed,total,errors=check_expressions(self.expressions())
         self.tests_passed=passed==total
+        self.todo_ok=check_expression_todos(self.expressions())
         self.test_label.config(text=f'Tests: {passed}/{total} PASS')
         self.basic_log.delete('1.0','end');self.basic_log.insert('end','\n'.join(errors[:6]) if errors else 'All passed. Continue to guided blocks A, B and C.')
-        self.sync_buttons()
+        self.sync_buttons();self.refresh_map()
 
     def preview(self):
         win=tk.Toplevel(self.root);win.title('Assembled algorithm | your current blocks');win.geometry('760x620')
